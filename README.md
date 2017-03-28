@@ -20,7 +20,7 @@ SomeModel.findCache({_id : 'id'}, 'select fields', 10).then(data => {
 });
 ```
 
-(Test cases)[https://github.com/hcnode/mongoose-findcache/blob/master/test/integration/index.test.js] for more detail
+[Test cases](https://github.com/hcnode/mongoose-findcache/blob/master/test/integration/index.test.js) for more detail
 
 ## Test
 `npm test`
