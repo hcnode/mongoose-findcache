@@ -16,7 +16,7 @@ schema.plugin(mongooseFindCache({
 }));
 SomeModel = mongoose.model('someModel', schema);
 SomeModel.findCache({_id : 'id'}, 'select fields', 10).then(data => {
-/	/ data is fetched and cache into redis server expired after 10's
+	// data is fetched and cache into redis server expired after 10's
 });
 ```
 
