@@ -1,12 +1,12 @@
 {
   "name": "mongoose-findcache",
-  "version": "1.0.0",
+  "version": "0.0.2",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test/bootstrap.test.js"
+    "test": "mocha --timeout 10000 test/integration/index.test.js"
   },
-  "author": "",
+  "author": "hcnode@gmail.com",
   "license": "MIT",
   "dependencies": {
     "ioredis": "^2.5.0",
@@ -16,7 +16,7 @@
     "chai": "^3.5.0",
     "chai-as-promised": "^6.0.0",
     "mocha": "^3.2.0",
-    "mockgoose": "^7.0.7",
+    "mockgoose": "^6.0.8",
     "should": "^11.2.1"
   }
 }
