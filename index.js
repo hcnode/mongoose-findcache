@@ -21,9 +21,37 @@ module.exports = function (redisServer) {
 							.then(writeResult => {
 								resolve(result)
 							}, err => {
-								console.log(err)
 								reject(err)
 							});
+					})
+				})
+			});
+		};
+
+		/**
+		 *  Attach a `aggregateCache()` helper to the schema for
+		 *  syntactic sugar
+		 */
+		schema.statics.aggregateCache = function (pipelines, timeout) {
+			if (!pipelines || typeof pipelines === 'function') {
+				pipelines = [];
+			}
+			var serializeString = JSON.stringify(pipelines);
+			return new Promise((resolve, reject) => {
+				RedisService.read(serializeString).then(result => {
+					resolve(result)
+				}).catch(err => {
+					this.aggregate(pipelines).exec((err, result) => {
+						if(err){
+							reject(err);
+						}else{
+							RedisService.write(serializeString, result, timeout || 10)
+								.then(writeResult => {
+									resolve(result)
+								}, err => {
+									reject(err)
+								});
+						}
 					})
 				})
 			});

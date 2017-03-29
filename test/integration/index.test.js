@@ -96,5 +96,34 @@ describe('mongoose-findCache', function () {
                 console.log(err);
             })
         });
+
+        it('#aggregateCache', function () {
+            var pipelines = [
+                {
+                    $match : {
+                        field2 : {$lt : 20}
+                    }
+                },
+                {
+                    $group : {
+                        _id : "$field3",
+                        sum : {
+                            $sum : "$field2"
+                        }
+                    }
+                }
+            ];
+            return Model.aggregateCache(pipelines, 2).then(result => {
+                result.length.should.be.equal(2);
+            }).then(result => {
+                return new Promise((resolve, reject) => {
+                    setTimeout(resolve, 2000)
+                })
+            }).then(result => {
+                return expect(RedisService.read(pipelines)).to.be.rejectedWith('not found');
+            }).catch(err => {
+                console.log(err);
+            })
+        });
     });
 });
